@@ -4,13 +4,11 @@ import TodoList from "./TodoList";
 
 const App = () => {
   const [todos, setTodos] = useState([
-    { id: 1, text: "Learn React" },
-    { id: 2, text: "Build a React app" },
-    { id: 3, text: "Deploy the React app" },
+    { id: 1, text: "Learn React" }
   ]);
 
   const handleComplete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   return (
