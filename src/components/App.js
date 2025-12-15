@@ -8,12 +8,20 @@ const App = () => {
     { id: 3, text: "Deploy the React app", completed: false }
   ]);
 
-  const handleComplete = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: true } : todo
-      )
-    );
+  const handleComplete = () => {
+    setTodos((prevTodos) => {
+      const index = [...prevTodos]
+        .reverse()
+        .findIndex((todo) => !todo.completed);
+
+      if (index === -1) return prevTodos;
+
+      const actualIndex = prevTodos.length - 1 - index;
+
+      return prevTodos.map((todo, i) =>
+        i === actualIndex ? { ...todo, completed: true } : todo
+      );
+    });
   };
 
   return (
@@ -27,7 +35,7 @@ const App = () => {
             {todo.text}
 
             {!todo.completed && (
-              <button onClick={() => handleComplete(todo.id)}>
+              <button onClick={handleComplete}>
                 Complete
               </button>
             )}
