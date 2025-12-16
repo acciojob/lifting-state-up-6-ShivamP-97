@@ -1,49 +1,27 @@
 import React, { useState } from "react";
-import "./../styles/App.css";
+import TodoList from "./TodoList";
 
-const App = () => {
+function App() {
   const [todos, setTodos] = useState([
     { id: 1, text: "Learn React", completed: false },
-    { id: 2, text: "Build a React App", completed: false },
-    { id: 3, text: "Deploy the React app", completed: false }
+    { id: 2, text: "Build a React app", completed: false },
+    { id: 3, text: "Deploy the React app", completed: false },
   ]);
 
-  const handleComplete = () => {
-    setTodos((prevTodos) => {
-      const index = [...prevTodos]
-        .reverse()
-        .findIndex((todo) => !todo.completed);
-
-      if (index === -1) return prevTodos;
-
-      const actualIndex = prevTodos.length - 1 - index;
-
-      return prevTodos.map((todo, i) =>
-        i === actualIndex ? { ...todo, completed: true } : todo
-      );
-    });
+  const handleComplete = (id) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: true } : todo
+      )
+    );
   };
 
   return (
     <div>
-      {/* Do not remove the main div */}
-      <h1>Todo App</h1>
-
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            {todo.text}
-
-            {!todo.completed && (
-              <button onClick={handleComplete}>
-                Complete
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
+      <h1>Parent Component</h1>
+      <TodoList todos={todos} onComplete={handleComplete} />
     </div>
   );
-};
+}
 
 export default App;
